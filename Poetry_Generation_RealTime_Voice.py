@@ -7,12 +7,15 @@ import os
 import sounddevice as sd
 import numpy as np
 import wave
+from dotenv import load_dotenv
+
+load_dotenv()
 
 model = whisper.load_model("base")
 
-GEMINI_API_KEY = "GEMINI_API_KEY"  
-PLAY_HT_API_KEY = "PLAY_HT_API_KEY"  
-PLAY_HT_USER_ID = "PLAY_HT_USER_ID"  
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+PLAY_HT_API_KEY = os.getenv("PLAY_HT_API_KEY")
+PLAY_HT_USER_ID = os.getenv("PLAY_HT_USER_ID")
 
 genai.configure(api_key=GEMINI_API_KEY)
 
