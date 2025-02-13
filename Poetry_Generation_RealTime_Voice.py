@@ -4,8 +4,7 @@ import google.generativeai as genai
 import requests
 import tempfile
 import os
-import sounddevice as sd
-import numpy as np
+import speech_recognition as sr  # Replacing sounddevice with speechrecognition
 import wave
 from dotenv import load_dotenv
 
@@ -23,16 +22,16 @@ def transcribe_audio(file_path):
     result = model.transcribe(file_path)
     return result['text']
 
-def record_audio(duration=10, sample_rate=44100):
+def record_audio(duration=10):
     st.info("Recording... Speak now!")
-    recording = sd.rec(int(duration * sample_rate), samplerate=sample_rate, channels=1, dtype=np.int16)
-    sd.wait()
+    
+    recognizer = sr.Recognizer()
+    with sr.Microphone() as source:
+        audio = recognizer.listen(source, timeout=duration)
+    
     file_path = "realtime_recording.wav"
-    with wave.open(file_path, 'wb') as wf:
-        wf.setnchannels(1)
-        wf.setsampwidth(2)
-        wf.setframerate(sample_rate)
-        wf.writeframes(recording.tobytes())
+    with open(file_path, 'wb') as f:
+        f.write(audio.get_wav_data())
     return file_path
 
 def generate_poetry(poetry_text):
