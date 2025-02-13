@@ -4,4 +4,4 @@ requests
 google-generativeai
 numpy
 sounddevice
-dotenv
+python-dotenv
