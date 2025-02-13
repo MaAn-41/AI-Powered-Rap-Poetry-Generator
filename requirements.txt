@@ -1,9 +1,10 @@
-streamlit
-whisper
+streamlit==1.17.0            # Ensure compatibility with Streamlit
+whisper==1.0.0               # Ensure correct version
 google-generativeai
 requests
 speechrecognition==3.8.1
 torch==2.2.0
 python-dotenv
-numpy==1.23.5
-
+numpy==1.24.2               # Ensure compatibility with Numba
+numba==0.55.2               # Correct version for compatibility with NumPy 1.24
+rich>=10.14.0
