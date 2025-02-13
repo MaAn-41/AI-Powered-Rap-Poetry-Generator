@@ -2,7 +2,6 @@ streamlit
 whisper
 google-generativeai
 requests
-sounddevice
 numpy
 python-dotenv
 pydub
