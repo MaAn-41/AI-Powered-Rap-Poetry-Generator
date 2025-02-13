@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-model = whisper.load_model("base")
+model = whisper.load_model("tiny")
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 PLAY_HT_API_KEY = os.getenv("PLAY_HT_API_KEY")
