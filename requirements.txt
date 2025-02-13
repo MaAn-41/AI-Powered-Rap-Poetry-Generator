@@ -1,8 +1,7 @@
+openai-whisper
 streamlit
-whisper
-google-generativeai
 requests
+google-generativeai
 numpy
-python-dotenv
-pydub
-speechrecognition
+sounddevice
+dotenv
