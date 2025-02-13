@@ -77,8 +77,10 @@ def text_to_speech(text):
 
 st.title("🎤 AI-Powered Rap & Poetry Generator")
 
+# Radio button for input method
 option = st.radio("Choose an input method:", ["Upload Audio File", "Record Real-Time Voice"])
 
+# When user selects "Upload Audio File", this block is executed
 if option == "Upload Audio File":
     uploaded_file = st.file_uploader("Upload your freestyle rap or poetry (MP3, WAV, M4A)", type=["mp3", "wav", "m4a"])
     if uploaded_file:
@@ -108,23 +110,31 @@ if option == "Upload Audio File":
         else:
             st.error("Audio file not found. Please check the generation process.")
 
+# When user selects "Record Real-Time Voice", we check if microphone is available
 elif option == "Record Real-Time Voice":
-    if st.button("Start Recording"):
-        recorded_file_path = record_audio()
-        st.audio(recorded_file_path, format='audio/wav')
-        with st.spinner("Transcribing your poetry..."):
-            poetry_text = transcribe_audio(recorded_file_path)
-            st.write("### Your Original Poetry:")
-            st.write(poetry_text)
-        with st.spinner("Generating continuation..."):
-            generated_poetry = generate_poetry(poetry_text)
-            st.write("### AI-Generated Continuation:")
-            st.write(generated_poetry)
-        with st.spinner("Generating AI narration..."):
-            text_to_speech(generated_poetry)
-        audio_file_path = "result1.mp3"
-        if os.path.exists(audio_file_path):
-            st.success("Audio generated successfully!")
-            st.audio(audio_file_path, format="audio/mp3")
-        else:
-            st.error("Audio file not found. Please check the generation process.")
+    try:
+        # Try recording audio (if microphone is accessible)
+        if st.button("Start Recording"):
+            recorded_file_path = record_audio()
+            st.audio(recorded_file_path, format='audio/wav')
+            with st.spinner("Transcribing your poetry..."):
+                poetry_text = transcribe_audio(recorded_file_path)
+                st.write("### Your Original Poetry:")
+                st.write(poetry_text)
+            with st.spinner("Generating continuation..."):
+                generated_poetry = generate_poetry(poetry_text)
+                st.write("### AI-Generated Continuation:")
+                st.write(generated_poetry)
+            with st.spinner("Generating AI narration..."):
+                text_to_speech(generated_poetry)
+            audio_file_path = "result1.mp3"
+            if os.path.exists(audio_file_path):
+                st.success("Audio generated successfully!")
+                st.audio(audio_file_path, format="audio/mp3")
+            else:
+                st.error("Audio file not found. Please check the generation process.")
+    
+    except Exception as e:
+        # If microphone is not available or another error occurs, show fallback message
+        st.error(f"Error with microphone input: {e}")
+        st.warning("Since microphone is not available, please use the 'Upload Audio File' option.")
