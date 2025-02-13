@@ -1,8 +1,7 @@
-openai-whisper
 streamlit
-requests
+whisper
 google-generativeai
-numpy
-sounddevice
-python-dotenv
-portaudio
+requests
+pyaudio
+speechrecognition
+torch==2.1.0
