@@ -2,6 +2,5 @@ streamlit
 whisper
 google-generativeai
 requests
-pyaudio==0.2.11
 speechrecognition==3.8.1
 torch==1.13.1
