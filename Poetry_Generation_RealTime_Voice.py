@@ -4,8 +4,6 @@ import google.generativeai as genai
 import requests
 import tempfile
 import os
-import pyaudio
-import wave
 import speech_recognition as sr
 from dotenv import load_dotenv
 
