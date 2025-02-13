@@ -4,3 +4,4 @@ google-generativeai
 requests
 speechrecognition==3.8.1
 torch==2.2.0
+python-dotenv
