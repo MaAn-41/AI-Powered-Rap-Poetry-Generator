@@ -4,7 +4,7 @@ import google.generativeai as genai
 import requests
 import tempfile
 import os
-from st_audiorec import st_audiorec
+#from st_audiorec import st_audiorec
 import numpy as np
 import wave
 from dotenv import load_dotenv
