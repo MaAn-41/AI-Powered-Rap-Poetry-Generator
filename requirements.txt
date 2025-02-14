@@ -1,7 +1,7 @@
 torch
 torchaudio
 sounddevice
-whisper
+git+https://github.com/openai/whisper.git
 google-generativeai
 requests
 numpy
