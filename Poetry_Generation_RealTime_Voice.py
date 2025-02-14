@@ -4,7 +4,7 @@ import google.generativeai as genai
 import requests
 import tempfile
 import os
-import sounddevice as sd
+from st_audiorec import st_audiorec
 import numpy as np
 import wave
 from dotenv import load_dotenv
@@ -22,18 +22,6 @@ genai.configure(api_key=GEMINI_API_KEY)
 def transcribe_audio(file_path):
     result = model.transcribe(file_path)
     return result['text']
-
-def record_audio(duration=10, sample_rate=44100):
-    st.info("Recording... Speak now!")
-    recording = sd.rec(int(duration * sample_rate), samplerate=sample_rate, channels=1, dtype=np.int16)
-    sd.wait()
-    file_path = "realtime_recording.wav"
-    with wave.open(file_path, 'wb') as wf:
-        wf.setnchannels(1)
-        wf.setsampwidth(2)
-        wf.setframerate(sample_rate)
-        wf.writeframes(recording.tobytes())
-    return file_path
 
 def generate_poetry(poetry_text):
     prompt = f"'{poetry_text}' ka aik behtareen aur rhyming continuation likhiye Urdu ya English mein."
@@ -105,20 +93,26 @@ if option == "Upload Audio File":
             st.error("Audio file not found. Please check the generation process.")
 
 elif option == "Record Real-Time Voice":
-    if st.button("Start Recording"):
-        recorded_file_path = record_audio()
-        st.audio(recorded_file_path, format='audio/wav')
+    audio_bytes = st_audiorec()
+    if audio_bytes:
+        with open("recorded_audio.wav", "wb") as f:
+            f.write(audio_bytes)
+        st.audio("recorded_audio.wav", format='audio/wav')
+        
         with st.spinner("Transcribing your poetry..."):
-            poetry_text = transcribe_audio(recorded_file_path)
+            poetry_text = transcribe_audio("recorded_audio.wav")
             st.write("### Your Original Poetry:")
             st.write(poetry_text)
+        
         with st.spinner("Generating continuation..."):
             generated_poetry = generate_poetry(poetry_text)
             st.write("### AI-Generated Continuation:")
             st.write(generated_poetry)
+        
         with st.spinner("Generating AI narration..."):
             text_to_speech(generated_poetry)
-        audio_file_path = "result1.mp3"
+        
+        audio_file_path = "output.mp3"
         if os.path.exists(audio_file_path):
             st.success("Audio generated successfully!")
             st.audio(audio_file_path, format="audio/mp3")
