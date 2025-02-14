@@ -1,8 +1,10 @@
-streamlit
-openai-whisper
+torch==2.0.1
+torchaudio==2.0.1
+sounddevice
+whisper
 google-generativeai
 requests
-sounddevice
 numpy
-wave
+pydub
+streamlit
 python-dotenv
