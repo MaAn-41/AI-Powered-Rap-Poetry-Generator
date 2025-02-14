@@ -1,7 +1,6 @@
 openai-whisper
 torch
 torchaudio
-st-audiorec
 git+https://github.com/openai/whisper.git
 google-generativeai
 requests
