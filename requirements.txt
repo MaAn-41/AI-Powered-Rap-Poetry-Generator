@@ -1,9 +1,8 @@
-streamlit==1.17.0
-whisper==1.0.0
-google-generativeai==0.1.0
-requests==2.28.1
-sounddevice==0.4.4
-numpy==1.24.2
-dotenv==0.20.0
-torch==2.2.0
-wave==0.0.2
+streamlit
+openai-whisper
+google-generativeai
+requests
+sounddevice
+numpy
+wave
+python-dotenv
